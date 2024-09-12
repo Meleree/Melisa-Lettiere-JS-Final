@@ -6,25 +6,54 @@
     <title>Melere</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<header class="container-fluid">
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar artículos...">
-        <button onclick="buscarArticulos()">Buscar</button>
-    </div>
-    <a href="./index.html" class="logo"><img src="./assets/melere.webp" alt="Logo" width="179"></a>
-    <div class="cart-container">
-        <a href="./pages/carrito.html" id="ver-carrito-btn"><img src="./assets/bolsa.webp" alt="Carrito" width="35"></a>
-    </div>
-</header>
 <body>
-    <div class="button-container">
-        <button onclick="location.href='./pages/remeras.html'">Remeras</button>
-        <button onclick="location.href='./pages/abrigos.html'">Abrigos</button>
-        <button onclick="location.href='./pages/accesorios.html'">Accesorios</button>
-        <button onclick="location.href='./pages/nosotros.html'">Nosotros</button>
-        <button onclick="location.href='./pages/local.html'">Local</button>
+    <header class="container-fluid">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Buscar artículos...">
+            <button onclick="buscarArticulos()">Buscar</button>
+        </div>
+        <a href="./index.html" class="logo"><img src="./assets/melere.webp" alt="Logo" width="179"></a>
+        <div class="cart-container">
+            <div id="contador-carrito">0</div>
+            <button onclick="mostrarCarrito()"><img src="./assets/bolsa.webp" alt="Carrito" width="35"></button>
+        </div>
+    </header>
+    
+    <div class="login-container">
+        <form id="loginForm">
+            <div class="form-group">
+                <p class="sesion">Iniciar Sesión</p>
+                <input class="usserinput" type="text" id="username" placeholder="Usuario" required>
+                <input class="passwordinput" type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </div>
+        </form>
+        <div id="message"></div>
     </div>
+
+    <div class="button-container">
+        <button class="talla-btn" onclick="location.href='./pages/remeras.html'">Remeras</button>
+        <button class="talla-btn" onclick="location.href='./pages/abrigos.html'">Abrigos</button>
+        <button class="talla-btn" onclick="location.href='./pages/accesorios.html'">Accesorios</button>
+        <button class="talla-btn" onclick="location.href='./pages/nosotros.html'">Nosotros</button>
+        <button class="talla-btn" onclick="location.href='./pages/local.html'">Local</button>
+    </div>
+
+    
+    <div id="cartOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="ocultarCarrito()">&times;</span>
+            <h2>Resumen del Carrito</h2>
+            <div id="cartContents"></div>
+            <!-- Botón para finalizar compra -->
+            <button id="finalizarCompraBtn" onclick="finalizarCompra()">Finalizar Compra</button>
+        </div>
+    </div>
+    
+    
+    <!-- Resto del contenido de tu página -->
     <div id="contenedor-articulos"></div>
+
     <script src="./main.js"></script>
 </body>
 </html>
