@@ -1,3 +1,17 @@
+[
+    {
+        "id": 1,
+        "nombre": "Remera Basic",
+        "precio": 45000,
+        "imagen": "./assets/reme-basic.webp"
+    },
+    {
+        "id": 2,
+        "nombre": "Remera Double",
+        "precio": 45000,
+        "imagen": "./assets/reme-double.webp"
+    }
+]
 
 
 new Articulo(1, 'Remera Basic', 45000, ['S', 'M', 'L', 'XL', 'XXL'], './assets/reme-basic.webp'),
