@@ -109,22 +109,55 @@ function mostrarArticulosFiltrados(articulosFiltrados) {
 function seleccionarTalla(talla, articuloId) {
     const articulo = articulos.find(a => a.id === articuloId);
     if (articulo) {
-        let cantidad = parseInt(prompt(`¿Cuántas unidades deseas de ${articulo.nombreProducto} (${talla})?`), 10);
-        if (isNaN(cantidad) || cantidad <= 0) {
-            alert("Cantidad no válida. Debes ingresar un número positivo.");
-        } else {
-            let itemEnCarrito = carrito.find(item => item.articulo.id === articulo.id && item.talla === talla);
-            if (itemEnCarrito) {
-                itemEnCarrito.cantidad += cantidad;
+        const cantidadInput = document.createElement('input');
+        cantidadInput.type = 'number';
+        cantidadInput.min = '1';
+        cantidadInput.value = '1';
+        cantidadInput.classList.add('cantidad-input');
+        
+        const confirmarBtn = document.createElement('button');
+        confirmarBtn.textContent = 'Confirmar';
+        confirmarBtn.onclick = () => {
+            const cantidad = parseInt(cantidadInput.value, 10);
+            if (isNaN(cantidad) || cantidad <= 0) {
+                alert("Cantidad no válida. Debes ingresar un número positivo.");
             } else {
-                carrito.push({ articulo, cantidad, talla });
+                let itemEnCarrito = carrito.find(item => item.articulo.id === articulo.id && item.talla === talla);
+                if (itemEnCarrito) {
+                    itemEnCarrito.cantidad += cantidad;
+                } else {
+                    carrito.push({ articulo, cantidad, talla });
+                }
+                localStorage.setItem('carrito', JSON.stringify(carrito)); 
+                actualizarContadorCarrito();
+                ocultarFormulario();
+                mostrarCarrito();
             }
-            localStorage.setItem('carrito', JSON.stringify(carrito)); 
-            actualizarContadorCarrito();
-            alert(`Has añadido ${cantidad} unidad(es) de ${articulo.nombreProducto} (${talla}) al carrito.`);
-        }
+        };
+        
+        const cancelarBtn = document.createElement('button');
+        cancelarBtn.textContent = 'Cancelar';
+        cancelarBtn.onclick = ocultarFormulario;
+
+        const formulario = document.createElement('div');
+        formulario.classList.add('formulario');
+        formulario.innerHTML = `
+            <p>¿Cuántas unidades deseas de ${articulo.nombreProducto} (${talla})?</p>
+        `;
+        formulario.appendChild(cantidadInput);
+        formulario.appendChild(confirmarBtn);
+        formulario.appendChild(cancelarBtn);
+        
+        document.body.appendChild(formulario);
     } else {
         alert("Artículo no encontrado.");
+    }
+}
+
+function ocultarFormulario() {
+    const formulario = document.querySelector('.formulario');
+    if (formulario) {
+        formulario.remove();
     }
 }
 
@@ -140,80 +173,61 @@ function mostrarCarrito() {
         carrito.forEach((item, index) => {
             const precioConIVA = (item.articulo.precioProducto * (1 + IVA)).toFixed(2);
             const subtotal = (item.cantidad * item.articulo.precioProducto * (1 + IVA)).toFixed(2);
-            resumenCarrito += `
-            <div class="cart-item">
-                <img src="${item.articulo.imagenUrl}" alt="${item.articulo.nombreProducto}" width="50">
-                <p><strong>Artículo:</strong> ${item.articulo.nombreProducto}</p>
-                <p><strong>Talla:</strong> ${item.talla}</p>
-                <p><strong>Precio Unitario (con IVA):</strong> $${precioConIVA}</p>
-                <p><strong>Subtotal:</strong> $${subtotal}</p>
-                <input type="number" value="${item.cantidad}" min="1" onchange="actualizarCantidad(${index}, this.value)">
-                <button onclick="eliminarArticulo(${index})">Eliminar</button>
-            </div>
-            `;
             total += parseFloat(subtotal);
+            resumenCarrito += `
+                <div>
+                    <p>Artículo: ${item.articulo.nombreProducto}</p>
+                    <p>Talla: ${item.talla}</p>
+                    <p>Cantidad: ${item.cantidad}</p>
+                    <p>Subtotal: $${subtotal}</p>
+                    <button onclick="eliminarDelCarrito(${index})">Eliminar</button>
+                </div>
+            `;
         });
-        resumenCarrito += `<p><strong>Total:</strong> $${total.toFixed(2)}</p>`;
+        
+        const totalConIVA = total.toFixed(2);
+        resumenCarrito += `<p>Total: $${totalConIVA}</p>`;
+        
         cartContents.innerHTML = resumenCarrito;
     }
     
-    cartOverlay.style.display = 'block';
-}
-
-function actualizarCantidad(index, nuevaCantidad) {
-    nuevaCantidad = parseInt(nuevaCantidad, 10);
-    if (isNaN(nuevaCantidad) || nuevaCantidad <= 0) {
-        alert("Cantidad no válida. Debes ingresar un número positivo.");
-        return;
-    }
-
-    carrito[index].cantidad = nuevaCantidad;
-    if (nuevaCantidad === 0) {
-        carrito.splice(index, 1); 
-    }
-    localStorage.setItem('carrito', JSON.stringify(carrito)); 
-    actualizarContadorCarrito();
-    mostrarCarrito();
-}
-
-function eliminarArticulo(index) {
-    carrito.splice(index, 1);
-    localStorage.setItem('carrito', JSON.stringify(carrito)); 
-    actualizarContadorCarrito();
-    mostrarCarrito();
+    cartOverlay.style.display = 'flex';
 }
 
 function ocultarCarrito() {
-    const cartOverlay = document.getElementById('cartOverlay');
-    cartOverlay.style.display = 'none';
+    document.getElementById('cartOverlay').style.display = 'none';
 }
 
-function actualizarContadorCarrito() {
-    const contadorCarrito = document.getElementById('contador-carrito');
-    const totalArticulos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-    contadorCarrito.textContent = `${totalArticulos}`;
+function eliminarDelCarrito(indice) {
+    carrito.splice(indice, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito)); 
+    mostrarCarrito();
+    actualizarContadorCarrito();
 }
 
 function finalizarCompra() {
-    if (carrito.length === 0) {
-        alert("Tu carrito está vacío. No puedes finalizar la compra.");
-        return;
+    if (carrito.length > 0) {
+        alert("Compra finalizada. ¡Gracias por su compra!");
+        carrito = [];
+        localStorage.setItem('carrito', JSON.stringify(carrito)); 
+        actualizarContadorCarrito();
+        ocultarCarrito();
+    } else {
+        alert("El carrito está vacío.");
     }
-
-    alert("¡Gracias por tu compra! Tu pedido ha sido procesado.");
-
-    carrito = [];
-    localStorage.setItem('carrito', JSON.stringify(carrito)); 
-    actualizarContadorCarrito();
-    mostrarCarrito(); 
 }
 
-window.onload = function() {
-    mostrarArticulos();
-    mostrarCarrito(); 
-    actualizarContadorCarrito(); 
+function actualizarContadorCarrito() {
+    const contador = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    document.getElementById('contador-carrito').textContent = contador;
+}
 
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarArticulos();
+    actualizarContadorCarrito();
+    
     document.getElementById('searchInput').addEventListener('input', buscarArticulos);
-    document.getElementById('finalizarCompra').addEventListener('click', finalizarCompra);
+    document.getElementById('cartButton').addEventListener('click', mostrarCarrito);
     document.getElementById('cartClose').addEventListener('click', ocultarCarrito);
-};
+    document.getElementById('finalizarCompra').addEventListener('click', finalizarCompra);
+});
