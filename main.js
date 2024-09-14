@@ -1,10 +1,38 @@
-let nombreUsuario = prompt("Ingrese su nombre");
-if (nombreUsuario == ""){
-    alert("No ingresaste tu nombre de usuario");
-}
-else {
-    alert("Bienvenido/a " + nombreUsuario + " a Melere");
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    const formLogin = document.getElementById('formLogin');
+
+    if (!loginForm || !formLogin) {
+        console.error('Formulario de inicio de sesión no encontrado.');
+        return;
+    }
+
+    loginForm.style.display = 'block';
+
+    formLogin.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const username = document.getElementById('username')?.value.trim();
+        const password = document.getElementById('password')?.value;
+
+        if (!username || !password) {
+            alert('Por favor, complete todos los campos.');
+            return;
+        }
+
+        const validUser = 'usuario';
+        const validPassword = 'contrasena';
+
+        if (username === validUser && password === validPassword) {
+            alert(`Bienvenido/a ${username} a Melere`);
+            loginForm.style.display = 'none'; 
+            mostrarArticulos(); 
+        } else {
+            alert('Nombre de usuario o contraseña incorrectos.');
+        }
+    });
+});
+
 
 let carrito = [];
 
@@ -61,11 +89,11 @@ function mostrarArticulos() {
         
         const precioConIVA = (articulo.precioProducto * (1 + IVA)).toFixed(2);
 
-        articuloDiv.innerHTML = 
+        articuloDiv.innerHTML = `
             <img src="${articulo.imagenUrl}" alt="${articulo.nombreProducto}">
             <h3>${articulo.nombreProducto}</h3>
             <p>Precio: $${precioConIVA}</p>
-        ;
+        `;
         
         articuloDiv.appendChild(tallasDiv);
         
@@ -103,11 +131,11 @@ function mostrarArticulosFiltrados(articulosFiltrados) {
         
         const precioConIVA = (articulo.precioProducto * (1 + IVA)).toFixed(2);
 
-        articuloDiv.innerHTML = 
+        articuloDiv.innerHTML = `
             <img src="${articulo.imagenUrl}" alt="${articulo.nombreProducto}">
             <h3>${articulo.nombreProducto}</h3>
             <p>Precio: $${precioConIVA}</p>
-        ;
+        `;
         
         articuloDiv.appendChild(tallasDiv);
         
@@ -118,7 +146,7 @@ function mostrarArticulosFiltrados(articulosFiltrados) {
 function seleccionarTalla(talla, articuloId) {
     const articulo = articulos.find(a => a.id === articuloId);
     if (articulo) {
-        let cantidad = parseInt(prompt(¿Cuántas unidades deseas de ${articulo.nombreProducto} (${talla})?), 10);
+        let cantidad = parseInt(prompt(`¿Cuántas unidades deseas de ${articulo.nombreProducto} (${talla})?`), 10);
         if (isNaN(cantidad) || cantidad <= 0) {
             alert("Cantidad no válida. Debes ingresar un número positivo.");
         } else {
@@ -129,7 +157,7 @@ function seleccionarTalla(talla, articuloId) {
                 carrito.push({ articulo, cantidad, talla });
             }
             actualizarContadorCarrito();
-            alert(Has añadido ${cantidad} unidad(es) de ${articulo.nombreProducto} (${talla}) al carrito.);
+            alert(`Has añadido ${cantidad} unidad(es) de ${articulo.nombreProducto} (${talla}) al carrito.`);
         }
     } else {
         alert("Artículo no encontrado.");
@@ -148,20 +176,20 @@ function mostrarCarrito() {
         carrito.forEach((item, index) => {
             const precioConIVA = (item.articulo.precioProducto * (1 + IVA)).toFixed(2);
             const subtotal = (item.cantidad * item.articulo.precioProducto * (1 + IVA)).toFixed(2);
-            resumenCarrito += 
-            <div class="cart-item">
-                <img src="${item.articulo.imagenUrl}" alt="${item.articulo.nombreProducto}" width="50">
-                <p><strong>Artículo:</strong> ${item.articulo.nombreProducto}</p>
-                <p><strong>Talla:</strong> ${item.talla}</p>
-                <p><strong>Precio Unitario (con IVA):</strong> $${precioConIVA}</p>
-                <p><strong>Subtotal:</strong> $${subtotal}</p>
-                <input type="number" value="${item.cantidad}" min="1" onchange="actualizarCantidad(${index}, this.value)">
-                <button onclick="eliminarArticulo(${index})">Eliminar</button>
-            </div>
-            ;
+            resumenCarrito += `
+                <div class="cart-item">
+                    <img src="${item.articulo.imagenUrl}" alt="${item.articulo.nombreProducto}" width="50">
+                    <p><strong>Artículo:</strong> ${item.articulo.nombreProducto}</p>
+                    <p><strong>Talla:</strong> ${item.talla}</p>
+                    <p><strong>Precio Unitario (con IVA):</strong> $${precioConIVA}</p>
+                    <p><strong>Subtotal:</strong> $${subtotal}</p>
+                    <input type="number" value="${item.cantidad}" min="1" onchange="actualizarCantidad(${index}, this.value)">
+                    <button onclick="eliminarArticulo(${index})">Eliminar</button>
+                </div>
+            `;
             total += parseFloat(subtotal);
         });
-        resumenCarrito += <p><strong>Total:</strong> $${total.toFixed(2)}</p>;
+        resumenCarrito += `<p><strong>Total:</strong> $${total.toFixed(2)}</p>`;
         cartContents.innerHTML = resumenCarrito;
     }
     
@@ -197,7 +225,7 @@ function ocultarCarrito() {
 function actualizarContadorCarrito() {
     const contadorCarrito = document.getElementById('contador-carrito');
     const totalArticulos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-    contadorCarrito.textContent = ${totalArticulos};
+    contadorCarrito.textContent = `${totalArticulos}`;
 }
 
 function finalizarCompra() {
@@ -213,154 +241,7 @@ function finalizarCompra() {
     mostrarCarrito(); 
 }
 
-
 window.onload = function() {
     mostrarArticulos();
     mostrarMenu();
 };
-
-const opcionesMenu = {
-    '1': submenuRemeras,
-    '2': submenuBuzos,
-    '3': submenuAccesorios,
-    '4': verCarrito,
-    '5': submenuMediosDePago,
-    '6': () => alert("Saliendo. ¡Hasta luego!")
-};
-
-function mostrarMenu() {
-    let opcion;
-    do {
-        opcion = prompt(
-            "Elige una opción:\n" +
-            "1. Comprar remeras\n" +
-            "2. Comprar buzos\n" +
-            "3. Comprar accesorios\n" +
-            "4. Ver carrito\n" +
-            "5. Medios de pago\n" +
-            "6. Salir"
-        );
-
-        const accion = opcionesMenu[opcion];
-        if (accion) {
-            accion();
-        } else {
-            alert("Opción no válida. Por favor, elige una opción entre 1 y 6.");
-        }
-    } while (opcion !== '6');
-}
-
-function manejarSubmenu(opciones, mensaje) {
-    let opcion;
-    do {
-        opcion = prompt(mensaje);
-
-        const accion = opciones[opcion];
-        if (accion === null) {
-            alert("Volviendo al menú principal.");
-            break;
-        } else if (typeof accion === 'number') {
-            manejarArticulo(accion);
-        } else if (typeof accion === 'function') {
-            accion();
-        } else {
-            alert("Opción no válida. Por favor, elige una opción correcta.");
-        }
-    } while (!opciones[opcion] || (opcion !== '9' && opcion !== '14' && opcion !== '19' && opcion !== '4'));
-}
-
-function manejarArticulo(id) {
-    const articulo = articulos.find(a => a.id === id);
-    if (articulo) {
-        const talla = prompt("Selecciona la talla: " + articulo.talleProducto.join(', '));
-        if (articulo.talleProducto.includes(talla)) {
-            const cantidad = parseInt(prompt("¿Cuántas unidades deseas agregar al carrito?"), 10);
-            if (isNaN(cantidad) || cantidad <= 0) {
-                alert("Cantidad no válida. Debe ser un número mayor que 0.");
-            } else {
-                seleccionarTalla(talla, articulo.id);
-            }
-        } else {
-            alert("Talla no válida. Por favor, elige una talla disponible.");
-        }
-    } else {
-        alert("Artículo no válido.");
-    }
-}
-
-function submenuRemeras() {
-    manejarSubmenu(
-        {
-            '1': 1,
-            '2': 2,
-            '3': 3,
-            '4': 4,
-            '5': 5,
-            '6': 6,
-            '7': 7,
-            '8': 8,
-            '9': null
-        },
-        "Acá tenemos estas opciones para vos:\n" +
-        "1. Remera Basic\n" +
-        "2. Remera Double\n" +
-        "3. Remera Dragon\n" +
-        "4. Remera Good Luck\n" +
-        "5. Remera Some Luck\n" +
-        "6. Remera Some Love\n" +
-        "7. Remera Oval\n" +
-        "8. Remera Fire\n" +
-        "9. Volver al menú principal"
-    );
-}
-
-function submenuBuzos() {
-    manejarSubmenu(
-        {
-            '10': 10,
-            '11': 11,
-            '12': 12,
-            '13': 13,
-            '14': null
-        },
-        "Acá tenemos estas opciones para vos:\n" +
-        "10. Buzo Incoherent\n" +
-        "11. Buzo Some Love\n" +
-        "12. Buzo Some Luck\n" +
-        "13. Buzo Star\n" +
-        "14. Volver al menú principal"
-    );
-}
-
-function submenuAccesorios() {
-    manejarSubmenu(
-        {
-            '15': 15,
-            '16': 16,
-            '17': 17,
-            '18': 18,
-            '19': null
-        },
-        "Acá tenemos estas opciones para vos:\n" +
-        "15. Balaclava Rayden\n" +
-        "16. Balaclava Spider\n" +
-        "17. Medias Puas\n" +
-        "18. Medias Shine\n" +
-        "19. Volver al menú principal"
-    );
-}
-
-function submenuMediosDePago() {
-    manejarSubmenu(
-        {
-            '1': () => alert("Has elegido el medio de pago número 1."),
-            '2': () => alert("Has elegido el medio de pago número 2."),
-            '3': () => alert("Has elegido el medio de pago número 3."),
-            '4': null
-        },
-        "Elegiste medios de pago. Elige una opción:\n" +
-        "1. Tarjeta de crédito\n" +
-        "2. MercadoPago\n" +
-        "4. Volver al menú principal"
-    );
-}
