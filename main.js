@@ -7,7 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    loginForm.style.display = 'block';
+    const nombreUsuarioGuardado = localStorage.getItem('nombreUsuario');
+    if (nombreUsuarioGuardado) {
+        loginForm.style.display = 'none';
+        alert(`Bienvenido/a ${nombreUsuarioGuardado} a Melere`);
+        mostrarArticulos();
+    } else {
+        loginForm.style.display = 'block';
+    }
 
     formLogin.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -24,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const validPassword = 'contrasena';
 
         if (username === validUser && password === validPassword) {
+            localStorage.setItem('nombreUsuario', username);
             alert(`Bienvenido/a ${username} a Melere`);
             loginForm.style.display = 'none'; 
             mostrarArticulos(); 
@@ -33,9 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
 let carrito = [];
-
 const IVA = 0.21;
 
 class Articulo {
@@ -156,6 +162,7 @@ function seleccionarTalla(talla, articuloId) {
             } else {
                 carrito.push({ articulo, cantidad, talla });
             }
+            guardarCarrito();
             actualizarContadorCarrito();
             alert(`Has añadido ${cantidad} unidad(es) de ${articulo.nombreProducto} (${talla}) al carrito.`);
         }
@@ -207,12 +214,14 @@ function actualizarCantidad(index, nuevaCantidad) {
     if (nuevaCantidad === 0) {
         carrito.splice(index, 1); 
     }
+    guardarCarrito();
     actualizarContadorCarrito();
     mostrarCarrito();
 }
 
 function eliminarArticulo(index) {
     carrito.splice(index, 1);
+    guardarCarrito();
     actualizarContadorCarrito();
     mostrarCarrito();
 }
@@ -235,13 +244,39 @@ function finalizarCompra() {
     }
 
     alert("¡Gracias por tu compra! Tu pedido ha sido procesado.");
-
     carrito = [];
+    guardarCarrito();
     actualizarContadorCarrito();
     mostrarCarrito(); 
 }
 
+function guardarCarrito() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+function mostrarMensaje(mensaje, tipo = 'info') {
+    const mensajeDiv = document.getElementById('mensaje');
+    if (!mensajeDiv) return;
+
+    mensajeDiv.textContent = mensaje;
+    mensajeDiv.className = `mensaje ${tipo}`;
+    mensajeDiv.style.display = 'block';
+
+    setTimeout(() => {
+        mensajeDiv.style.display = 'none';
+    }, 3000); 
+}
+
+function cargarCarrito() {
+    const carritoGuardado = localStorage.getItem('carrito');
+    if (carritoGuardado) {
+        carrito = JSON.parse(carritoGuardado);
+        actualizarContadorCarrito();
+    }
+}
+
 window.onload = function() {
+    cargarCarrito();
     mostrarArticulos();
     mostrarMenu();
 };
