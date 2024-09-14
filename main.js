@@ -314,7 +314,6 @@ function submenuRemeras() {
     );
 }
 
-// Función para el submenú de buzos
 function submenuBuzos() {
     manejarSubmenu(
         {
@@ -333,7 +332,6 @@ function submenuBuzos() {
     );
 }
 
-// Función para el submenú de accesorios
 function submenuAccesorios() {
     manejarSubmenu(
         {
@@ -352,7 +350,6 @@ function submenuAccesorios() {
     );
 }
 
-// Función para el submenú de medios de pago
 function submenuMediosDePago() {
     manejarSubmenu(
         {
