@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,8 @@
         <form id="loginForm">
             <div class="form-group">
                 <p class="sesion">Iniciar Sesión</p>
-                <input class="usserinput" type="text" id="username" placeholder="Usuario" required>
-                <input class="passwordinput" type="password" id="password" placeholder="Contraseña" required>
+                <input class="usserinput" type="text" id="username" placeholder="Usuario" required autocomplete="username">
+                <input class="passwordinput" type="password" id="password" placeholder="Contraseña" required autocomplete="current-password">
                 <button type="submit">Entrar</button>
             </div>
         </form>
@@ -39,7 +39,6 @@
         <button class="talla-btn" onclick="location.href='./pages/local.html'">Local</button>
     </div>
 
-    
     <div id="cartOverlay" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" onclick="ocultarCarrito()">&times;</span>
@@ -48,10 +47,9 @@
             <button id="finalizarCompraBtn" onclick="finalizarCompra()">Finalizar Compra</button>
         </div>
     </div>
-    
-    
+
     <div id="contenedor-articulos"></div>
     <div id="mensaje" style="display: none;"></div>
-    <script src="./main.js"></script>
+    <script src="./main.js" defer></script>
 </body>
 </html>
