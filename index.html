@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,24 +13,33 @@
             <button onclick="buscarArticulos()">Buscar</button>
         </div>
         <a href="./index.html" class="logo"><img src="./assets/melere.webp" alt="Logo" width="179"></a>
+        
         <div class="cart-container">
-            <div id="contador-carrito">0</div>
-            <button onclick="mostrarCarrito()"><img src="./assets/bolsa.webp" alt="Carrito" width="35"></button>
+            <button onclick="mostrarCarrito()">
+                <img src="./assets/bolsa.webp" alt="Carrito" width="35">
+                <span id="cartCount">0</span> 
+            </button>
         </div>
-    </header>
-    
-    <div class="login-container">
-        <form id="loginForm">
-            <div class="form-group">
-                <p class="sesion">Iniciar Sesión</p>
-                <input class="usserinput" type="text" id="username" placeholder="Usuario" required autocomplete="username">
-                <input class="passwordinput" type="password" id="password" placeholder="Contraseña" required autocomplete="current-password">
-                <button type="submit">Entrar</button>
+                
+        <div id="cartOverlay" class="overlay" style="display: none;">
+            <div class="overlay-content">
+                <span class="close" onclick="cerrarCarrito()">&times;</span>
+                <h2>Contenido del Carrito</h2>
+                <div id="cartContents"></div>
+                <button onclick="finalizarCompra()">Finalizar Compra</button>
             </div>
-        </form>
-        <div id="message"></div>
+        </div>
+        
+    </header>
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="cerrarPopup()">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <input type="text" id="nombreUsuario" placeholder="Ingrese su nombre" />
+            <input type="password" id="contrasena" placeholder="Ingrese su contraseña" />
+            <button onclick="iniciarSesion()">Iniciar Sesión</button>
+        </div>
     </div>
-
     <div class="button-container">
         <button class="talla-btn" onclick="location.href='./pages/remeras.html'">Remeras</button>
         <button class="talla-btn" onclick="location.href='./pages/abrigos.html'">Abrigos</button>
@@ -38,18 +47,7 @@
         <button class="talla-btn" onclick="location.href='./pages/nosotros.html'">Nosotros</button>
         <button class="talla-btn" onclick="location.href='./pages/local.html'">Local</button>
     </div>
-
-    <div id="cartOverlay" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn" onclick="ocultarCarrito()">&times;</span>
-            <h2>Resumen del Carrito</h2>
-            <div id="cartContents"></div>
-            <button id="finalizarCompraBtn" onclick="finalizarCompra()">Finalizar Compra</button>
-        </div>
-    </div>
-
     <div id="contenedor-articulos"></div>
-    <div id="mensaje" style="display: none;"></div>
-    <script src="./main.js" defer></script>
+    <script src="./main.js"></script>
 </body>
 </html>

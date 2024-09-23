@@ -1,114 +1,114 @@
 [
     {
-        "id": "1",
-        "nombre": "Remera Basic",
-        "precio": 45000,
+        "id": 1,
+        "nombreProducto": "Remera Basic",
+        "precioProducto": 45000,
         "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/reme-basic.webp"
+        "imagenUrl": "./assets/reme-basic.webp"
     },
     {
-        "id": "2",
-        "nombre": "Remera Double",
-        "precio": 45000,
+        "id": 2,
+        "nombreProducto": "Remera Double",
+        "precioProducto": 45000,
         "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/reme-double.webp"
+        "imagenUrl": "./assets/reme-double.webp"
     },
     {
-        "id": "3",
-        "nombre": "Remera Dragon",
-        "precio": 45000,
+        "id": 3,
+        "nombreProducto": "Remera Dragon",
+        "precioProducto": 45000,
         "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/reme-dragon.webp"
-    },    
-    {
-        "id": "4",
-        "nombre": "Remera Good Luck",
-        "precio": 45000,
-        "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/reme-good-luck.webp"
-    },    
-    {
-        "id": "5",
-        "nombre": "Remera Some Luck",
-        "precio": 45000,
-        "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/reme-some-luck.webp"
-    },    
-    {
-        "id": "6",
-        "nombre": "Remera Some Love",
-        "precio": 45000,
-        "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/reme-some-love.webp"
-    },    
-    {
-        "id": "7",
-        "nombre": "Remera Oval",
-        "precio": 45000,
-        "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/reme-oval.webp"
-    },    
-    {
-        "id": "8",
-        "nombre": "Remera Fire",
-        "precio": 45000,
-        "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/reme-fire.webp"
-    },    
-    {
-        "id": "9",
-        "nombre": "Buzo Incoherent",
-        "precio": 65000,
-        "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/buzo-incoherent.webp"
+        "imagenUrl": "./assets/reme-dragon.webp"
     },
     {
-        "id": "10",
-        "nombre": "Buzo Some Love",
-        "precio": 65000,
+        "id": 4,
+        "nombreProducto": "Remera Good Luck",
+        "precioProducto": 45000,
         "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/buzo-some-love.webp"
+        "imagenUrl": "./assets/reme-good-luck.webp"
     },
     {
-        "id": "11",
-        "nombre": "Buzo Some Luck",
-        "precio": 65000,
+        "id": 5,
+        "nombreProducto": "Remera Some Luck",
+        "precioProducto": 45000,
         "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/buzo-some-luck.webp"
+        "imagenUrl": "./assets/reme-some-luck.webp"
     },
     {
-        "id": "12",
-        "nombre": "Buzo Star",
-        "precio": 65000,
+        "id": 6,
+        "nombreProducto": "Remera Some Love",
+        "precioProducto": 45000,
         "talleProducto": ["S", "M", "L", "XL", "XXL"],
-        "imagen": "./assets/buzo-star.webp"
+        "imagenUrl": "./assets/reme-some-love.webp"
     },
     {
-        "id": "13",
-        "nombre": "Balaclava Rayden",
-        "precio": 15000,
+        "id": 7,
+        "nombreProducto": "Remera Oval",
+        "precioProducto": 45000,
+        "talleProducto": ["S", "M", "L", "XL", "XXL"],
+        "imagenUrl": "./assets/reme-oval.webp"
+    },
+    {
+        "id": 8,
+        "nombreProducto": "Remera Fire",
+        "precioProducto": 45000,
+        "talleProducto": ["S", "M", "L", "XL", "XXL"],
+        "imagenUrl": "./assets/reme-fire.webp"
+    },
+    {
+        "id": 9,
+        "nombreProducto": "Buzo Incoherent",
+        "precioProducto": 65000,
+        "talleProducto": ["S", "M", "L", "XL", "XXL"],
+        "imagenUrl": "./assets/buzo-incoherent.webp"
+    },
+    {
+        "id": 10,
+        "nombreProducto": "Buzo Some Love",
+        "precioProducto": 65000,
+        "talleProducto": ["S", "M", "L", "XL", "XXL"],
+        "imagenUrl": "./assets/buzo-some-love.webp"
+    },
+    {
+        "id": 11,
+        "nombreProducto": "Buzo Some Luck",
+        "precioProducto": 65000,
+        "talleProducto": ["S", "M", "L", "XL", "XXL"],
+        "imagenUrl": "./assets/reme-some-luck.webp"
+    },
+    {
+        "id": 12,
+        "nombreProducto": "Buzo Star",
+        "precioProducto": 65000,
+        "talleProducto": ["S", "M", "L", "XL", "XXL"],
+        "imagenUrl": "./assets/buzo-star.webp"
+    },
+    {
+        "id": 13,
+        "nombreProducto": "Balaclava Rayden",
+        "precioProducto": 15000,
         "talleProducto": ["Unico"],
-        "imagen": "./assets/bala-rayden.webp"
+        "imagenUrl": "./assets/bala-rayden.webp"
     },
     {
-        "id": "14",
-        "nombre": "Balaclava Spider",
-        "precio": 15000,
+        "id": 14,
+        "nombreProducto": "Balaclava Spyder",
+        "precioProducto": 15000,
         "talleProducto": ["Unico"],
-        "imagen": "./assets/bala-spider.webp"
+        "imagenUrl": "./assets/bala-spyder.webp"
     },
     {
-        "id": "15",
-        "nombre": "Medias Puas",
-        "precio": 8000,
+        "id": 15,
+        "nombreProducto": "Medias Puas",
+        "precioProducto": 8500,
         "talleProducto": ["Unico"],
-        "imagen": "./assets/medias-puas.webp"
+        "imagenUrl": "./assets/medias-puas.webp"
     },
     {
-        "id": "16",
-        "nombre": "Medias Shine",
-        "precio": 8000,
+        "id": 16,
+        "nombreProducto": "Medias Shine",
+        "precioProducto": 8500,
         "talleProducto": ["Unico"],
-        "imagen": "./assets/medias-shine.webp"
+        "imagenUrl": "./assets/medias-shine.webp"
     }
 ]
