@@ -30,7 +30,7 @@ const usuarioCorrecto = "usuario";
 
         async function cargarArticulos() {
             try {
-                const response = await fetch('/JSON/articulos.json');
+                const response = await fetch('./JSON/articulos.json');
                 if (!response.ok) {
                     throw new Error('Error al cargar los artículos');
                 }
